@@ -1,10 +1,6 @@
  <!-- badges: start -->
-  [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+  [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)[![CRAN status](https://www.r-pkg.org/badges/version/QICpack)](https://CRAN.R-project.org/package=QICpack)
   <!-- badges: end -->
-  <!-- badges: start -->
-  [![CRAN status](https://www.r-pkg.org/badges/version/QICpack)](https://CRAN.R-project.org/package=QICpack)
-  <!-- badges: end -->
-  
   
 # qicpack: QIC Package for GEE
 =======
