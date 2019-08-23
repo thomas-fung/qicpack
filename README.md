@@ -3,7 +3,6 @@
   <!-- badges: end -->
   
 # qicpack: QIC Package for GEE
-=======
 
 The `qicpack` package calculates QIC of [Pan (2001)](https://doi.org/10.1111/j.0006-341X.2001.00120.x) for Generalized Estimating Equations. This is designed to work as an add-on to `geepack` of [Højsgaard, Halekoh & Yan (2016)](https://cran.r-project.org/web/packages/geepack/index.html). 
 
