@@ -1,5 +1,6 @@
  <!-- badges: start -->
   [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)[![CRAN status](https://www.r-pkg.org/badges/version/QICpack)](https://CRAN.R-project.org/package=QICpack)
+  [![Travis build status](https://travis-ci.org/thomas-fung/qicpack.svg?branch=master)](https://travis-ci.org/thomas-fung/qicpack)
   <!-- badges: end -->
   
 # qicpack: QIC Package for GEE
@@ -29,7 +30,6 @@ A reference manual is available at [thomas-fung.github.io/qicpack](https://thoma
 ## Citation
 
 If you use this package to analyse your data, please use the following citation:
-
 
 From R you can use:
 
