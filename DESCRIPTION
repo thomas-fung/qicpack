@@ -1,17 +1,17 @@
-Package: QICpack
+Package: qicpack
 Type: Package
 Title: Model selection for generalized estimating equations using QIC
-Version: 0.10.0
-Date: 2014-03-01
-Author: Daniel J. Hocking
-Maintainer: Daniel J. Hocking <dhocking@unh.edu>
-Description: This package contains the function qic, which calculates Pan's
-    (2001) quasi likelihood information criteria (QIC) for models generated
-    from the geepack R package. The package also contains a function 'qictab'
-    that compares a list of geeglm models from geepack and calculates delta
-    QIC, QIC model weights, and cumulative model weights.
+Version: 0.0.1
+Date: 2019-08-28
+Authors@R: c(person("Thomas", "Fung", role = c("aut", "cre"),
+         email = "thomas.fung.dr@gmail.com",
+         comment =c(ORCID = "0000-0003-2601-0728")))
+Description: This package contains the function QIC, which calculates Pan's
+    (2001) quasi-likelihood under the independence model citerion (also commonly 
+    known as quasi-likelihood information criterion, QIC) for models generated
+    from the geepack R package.
 License: GPL (>= 3)
-URL: http://github.com/djhocking/qicpack/issues
+URL: http://github.com/thomas-fung/qicpack/
 Encoding: UTF-8
 LazyData: true
 LazyLoad: Yes
@@ -20,5 +20,8 @@ Suggests:
     knitr,
     rmarkdown,
     testthat
-BugReports: https://github.com/thomas-fung/mpcmp/issues
-Depends: MASS, geepack, stats
+BugReports: https://github.com/thomas-fung/qicpack/issues
+Imports:
+    MASS,
+    geepack,
+    stats

@@ -11,11 +11,11 @@ The `qicpack` package calculates QIC of [Pan (2001)](https://doi.org/10.1111/j.0
 
 ### Stable release on CRAN
 
-The ***qicpack*** package is not available on [CRAN](https://cran.r-project.org/package=qicpack) yet. 
+The `qicpack` package is still in active development and so it is not available on [CRAN](https://cran.r-project.org/package=qicpack) yet. 
 
 ### Development version on Github
 
-You can use the **devtools** package to install the development version of **qicpack** from [GitHub](https://github.com/thomas-fung/qicpack):
+You can use the `devtools` package to install the development version of `qicpack` from [GitHub](https://github.com/thomas-fung/qicpack):
 
 ```s
 # install.packages("devtools")

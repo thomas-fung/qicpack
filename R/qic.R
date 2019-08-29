@@ -1,113 +1,78 @@
 #' Calculates QIC (Pan, 2001) for model generated with geeglm in the geepack package
 #' 
-#' This function calculates the quasilikelihood information criteria (QIC; Pan, 2001) for model generated using geeglm in geepack. The QIC is intended as an equivalent of AIC for generalized estimating equations (GEE-PA).
+#' This function calculates the quasi-likelihood under the independence model citerion
+#' (also commonly known as quasi-likelihood information criterion) (QIC; Pan, 2001) for
+#' model generated using geeglm in geepack. 
 #' @usage 
-#' qic(object)
+#' QIC(object)
 #' @param object an object class "geeglm", obtained from a call to \code{geeglm} of the \code{geepack} package.
+#' @param ... optionally more fitted model objects.
 #' @export
 #' @import MASS
 #' @details 
-#' Fit a mean-parametrizied COM-Poisson regression using maximum likelihood estimation 
-#' via an iterative Fisher Scoring algorithm. 
+#' The QIC can be used as the AIC for generalized estimating equations. The smaller the
+#' QIC, the better the fit. 
 #' 
-#' The COM-Poisson regression model is
+#' According to Cui and Qian (2007), QICu is obtinaed by assuming the asymptotic
+#'  equivalence of the working correlation and the independence correlation structures.
+#'  It follows that QICu is not appropriate for being used to select an optimal 
+#'  correlation structure and therefore QICu is not included here. 
 #' 
-#' Y_i ~ CMP(mu_i, nu), 
-#'           
-#' where  
-#'    
-#' E(Y_i) = mu_i = exp(x_i^T beta),
-#'       
-#' and \emph{nu > 0} is the dispersion parameter. 
+#' Based on the full model including all explanatory variables and their interactions, 
+#' the best correlation structure is usually selected first based on the model with the
+#' smallest QIC value. Based on the best correlation structure, we can then further
+#' select the best subset of covariates. The model with the smallest QIC value at this 
+#' stage would be consider as the most parsimonious model with the best correlation
+#' structure.
 #' 
-#' The fitted COM-Poisson distribution is over- or under-dispersed 
-#' if \emph{nu < 1} and \emph{nu > 1} respectively.
 #' @return 
-#' A fitted model object of class \code{cmp} similar to one obtained from \code{glm} 
-#' or \code{glm.nb}.
+#' If just one object is provided, a numeric value with the corresponding QIC. 
 #' 
-#' The function \code{summary} (i.e., \code{\link{summary.cmp}}) can be used to obtain 
-#' and print a summary of the results. 
+#' If multiple objects are provided, a data.frame with rows corresponding to the
+#'  objects and columns representing the QIC, log of quasi-likelihood 
+#'  (\code{log.QLik}), trace or the penalty term (\code{Trace}) as well as the number
+#'   of covariates (\code{px}) in the model. 
 #' 
-#' The function \code{plot} (i.e., \code{\link{plot.cmp}}) can be used to produce a range 
-#' of diagnostic plots. 
+#' \code{get_QIC} is the function that does the actual calculation.
+#' @author 
+#' Originally by Daniel J. Hocking, more recent revisions by Thomas Fung.
 #' 
-#' The generic assessor functions \code{coef} (i.e., \code{\link{coef.cmp}}), 
-#' \code{logLik} (i.e., \code{\link{logLik.cmp}}) 
-#' \code{fitted} (i.e., \code{\link{fitted.cmp}}), 
-#' \code{nobs} (i.e., \code{\link{nobs.cmp}}), 
-#' \code{AIC} (i.e., \code{\link{AIC.cmp}}) and 
-#' \code{residuals} (i.e., \code{\link{residuals.cmp}}) 
-#' can be used to extract various useful features of the value
-#' returned by \code{glm.cmp}.
+#' @references
+#' Cui, J, and Qian, G. (2007). Selection of Working Correlation Structure and Best
+#' Model in GEE Analyses of Longitudinal Data. \emph{Communication in Statistics
+#' --Simulation and Computation} \bold{36}, 987--996.
 #' 
-#' An object class 'glm.cmp' is a list containing at least the following components:
-#'
-#' \item{coefficients}{a named vector of coefficients}
-#' \item{se_beta}{approximate standard errors (using observed rather than expected 
-#' information) for coefficients}
-#' \item{residuals}{the \emph{response} residuals (i.e., observed-fitted)}
-#' \item{fitted.values}{the fitted mean values}
-#' \item{rank}{the numeric rank of the fitted linear model}
-#' \item{linear.predictors}{the linear fit on log scale}
-#' \item{df.residuals}{the residuals degrees of freedom}
-#' \item{df.null}{the residual degrees of freedom for the null model}
-#' \item{null.deviance}{The deviance for the null model. 
-#' The null model will include only the intercept.}
-#' \item{y}{the \code{y} vector used.}
-#' \item{x}{the model matrix}
-#' \item{model}{the model frame}
-#' \item{call}{the matched call}
-#' \item{formula}{the formula supplied}
-#' \item{terms}{the \code{terms} object used}
-#' \item{data}{the \code{data} argument}
-#' \item{offset}{the \code{offset} vector used}
-#' \item{lambdaub}{the final \code{lambdaub} used}
+#' Pan, W. (2001). Akaike's Information Criterion in Generalized Estimating Equations.
+#' \emph{Biometrics} \bold{57}, 120--125. 
 #' 
-#' @references 
-#' Fung, T., Alwan, A., Wishart, J. and Huang, A. (2019). \code{mpcmp}: Mean-parametrized
-#' Conway-Maxwell Poisson Regression. R package version 0.2.0.
-#' 
-#' Huang, A. (2017). Mean-parametrized Conway-Maxwell-Poisson regression models for 
-#' dispersed counts. \emph{Statistical Modelling} \bold{17}, 359--380.
-#'   
-#' @seealso 
-#' \code{\link{summary.cmp}}, \code{\link{plot.cmp}}, \code{\link{fitted.cmp}} 
-#' and \code{\link{residuals.cmp}}.
 #' @examples 
-#' ### Huang (2017) Page 368--370: Overdispersed Attendance data
-#' data(attendance)
-#' M.attendance <- glm.cmp(daysabs~ gender+math+prog, data=attendance)
-#' M.attendance
-#' summary(M.attendance)
-#' plot(M.attendance)
-#' 
-#' ### Barbour & Brown (1974): Overdispersed Fish data
-#' data(fish)
-#' M.fish <- glm.cmp(species~ 1+log(area), data=fish)
-#' M.fish
-#' summary(M.fish)
-#' 
-#' ### Huang (2017) Page 371--372: Underdispersed Takeover Bids data
-#' data(takeoverbids)
-#' M.bids <- glm.cmp(numbids ~ leglrest + rearest + finrest + whtknght 
-#'     + bidprem + insthold + size + sizesq + regulatn, data=takeoverbids)
-#' M.bids
-#' summary(M.bids)
-#' par(mfrow=c(2,2))
-#' plot(M.bids)
-#' 
-#' ### Huang (2017) Page 373--375: Underdispersed Cotton bolls data
-#' ### Model fitting for predictor V 
-#' \donttest{
-#' data(cottonbolls)
-#' M.bolls <- glm.cmp(nc~ 1+stages:def+stages:def2, data= cottonbolls)
-#' M.bolls
-#' summary(M.bolls)
-#' }
+#' data(dietox)
+#' dietox$Cu <- as.factor(dietox$Cu)
+#' gee01 <- geeglm(Weight ~ Time + Cu + Cu * Time, id =Pig, data =
+#'  dietox, family=gaussian,corstr="ex")
+#' gee02 <- geeglm(Weight ~ Time + Cu + Cu * Time, id =Pig, data =
+#'  dietox, family=gaussian,corstr="unstructured")
+#' QIC(gee01)
+#' QIC(gee01, gee02)
+#' @name QIC
+NULL
 
+#' @rdname QIC
+#' @export
+QIC <- function(object, ...){
+  if (!missing(...)) {
+    res <- sapply(list(object, ...), get_QIC)
+    val <- as.data.frame(t(res))
+    Call <- match.call()
+    row.names(val) <- as.character(Call[-1L])
+    val
+  }
+  else get_QIC(object)[[1L]]
+}
 
-qic <- function(object) {
+#' @rdname QIC
+#' @export
+get_QIC <- function(object) {
     check.class <- class(object)
     known <- NULL
     if(identical(check.class[1], "geeglm")) {
@@ -135,10 +100,13 @@ qic <- function(object) {
     Vr <- object$geese$vbeta
     trace.R <- sum(diag(omegaI %*% Vr))
     px <- dim(model.matrix(model.indep))[2]
-    # QIC
     QIC <- 2*(trace.R - quasi.R)
-    QICu <- (-2)*quasi.R + 2*px    # Approximation assuming model structured correctly
-    output <- data.frame(list(QIC, QICu, quasi.R, trace.R, px))
-    names(output) <- c('QIC', 'QICu', 'Log.QLik', 'Trace', 'px')
-    return(output)
-  }
+    out <- list()
+    out$QIC <- QIC
+    out$log.QLik <- quasi.R
+    out$Trace <- trace.R
+    out$px <- px
+    class(out) <- "qic"
+    return(out)
+}
+
