@@ -15,7 +15,7 @@
 \item{Litter}{Identifier of litter of each pig} 
 }}
 \source{
-Lauridsen, C., Højsgaard, S., Sørensen, M.T.C. (1999). Influence of Dietary Rapeseed Oli, Vitamin E, and Copper on Performance and Antioxidant and Oxidative Status of Pigs. J. Anim. Sci.77:906-916
+Lauridsen, C., Højsgaard, S., Sørensen, M.T.C. (1999). Influence of Dietary Rapeseed Oli, Vitamin E, and Copper on Performance and Antioxidant and Oxidative Status of Pigs. J. Anim. Sci.77:906--916
 }
 \usage{
 data(dietox)
