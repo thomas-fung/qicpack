@@ -10,8 +10,7 @@
 #' @export
 #' @import MASS
 #' @import geepack
-#' @importFrom stats family model.matrix update
-#' @r
+#' @importFrom stats family model.matrix update formula
 #' @details 
 #' The QIC can be used as the AIC for generalized estimating equations. The smaller the
 #' QIC, the better the fit. 
@@ -65,10 +64,6 @@
 #' gee3.un = update(gee3.ar, corstr = "unstructured")
 #' QIC(gee3.ar, gee3.i, gee3.ex, gee3.un)
 #' @name QIC
-NULL
-
-#' @rdname QIC
-#' @export
 QIC <- function(object, ...){
   if (!missing(...)) {
     res <- sapply(list(object, ...), get_QIC)

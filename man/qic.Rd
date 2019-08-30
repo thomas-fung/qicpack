@@ -7,8 +7,6 @@
 \usage{
 QIC(object, ...)
 
-QIC(object, ...)
-
 get_QIC(object)
 }
 \arguments{
