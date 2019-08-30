@@ -5,7 +5,7 @@
 \alias{get_QIC}
 \title{Calculates QIC (Pan, 2001) for model generated with geeglm in the geepack package}
 \usage{
-QIC(object)
+QIC(object, ...)
 
 QIC(object, ...)
 
@@ -56,6 +56,13 @@ gee02 <- geeglm(Weight ~ Time + Cu + Cu * Time, id =Pig, data =
  dietox, family=gaussian,corstr="unstructured")
 QIC(gee01)
 QIC(gee01, gee02)
+
+mf3 = formula(Weight ~ Cu + Time + I(Time^2))
+gee3.ar = geeglm(mf3, data = dietox, id = Pig, family = Gamma, corstr = "ar1")
+gee3.i = update(gee3.ar, corstr = "independence")
+gee3.ex = update(gee3.ar, corstr = "exchangeable")
+gee3.un = update(gee3.ar, corstr = "unstructured")
+QIC(gee3.ar, gee3.i, gee3.ex, gee3.un)
 }
 \references{
 Cui, J, and Qian, G. (2007). Selection of Working Correlation Structure and Best

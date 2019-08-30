@@ -9,7 +9,7 @@ Authors@R: c(person("Thomas", "Fung", role = c("aut", "cre"),
 Description: This package contains the function QIC, which calculates Pan's
     (2001) quasi-likelihood under the independence model citerion (also commonly 
     known as quasi-likelihood information criterion, QIC) for models generated
-    from the geepack R package.
+    from the geepack R package. 
 License: GPL (>= 3)
 URL: http://github.com/thomas-fung/qicpack/
 Encoding: UTF-8
@@ -21,7 +21,8 @@ Suggests:
     rmarkdown,
     testthat
 BugReports: https://github.com/thomas-fung/qicpack/issues
+Depends:
+    geepack
 Imports:
     MASS,
-    geepack,
     stats

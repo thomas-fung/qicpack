@@ -4,11 +4,14 @@
 #' (also commonly known as quasi-likelihood information criterion) (QIC; Pan, 2001) for
 #' model generated using geeglm in geepack. 
 #' @usage 
-#' QIC(object)
+#' QIC(object, ...)
 #' @param object an object class "geeglm", obtained from a call to \code{geeglm} of the \code{geepack} package.
 #' @param ... optionally more fitted model objects.
 #' @export
 #' @import MASS
+#' @import geepack
+#' @importFrom stats family model.matrix update
+#' @r
 #' @details 
 #' The QIC can be used as the AIC for generalized estimating equations. The smaller the
 #' QIC, the better the fit. 
@@ -54,6 +57,13 @@
 #'  dietox, family=gaussian,corstr="unstructured")
 #' QIC(gee01)
 #' QIC(gee01, gee02)
+#' 
+#' mf3 = formula(Weight ~ Cu + Time + I(Time^2))
+#' gee3.ar = geeglm(mf3, data = dietox, id = Pig, family = Gamma, corstr = "ar1")
+#' gee3.i = update(gee3.ar, corstr = "independence")
+#' gee3.ex = update(gee3.ar, corstr = "exchangeable")
+#' gee3.un = update(gee3.ar, corstr = "unstructured")
+#' QIC(gee3.ar, gee3.i, gee3.ex, gee3.un)
 #' @name QIC
 NULL
 
@@ -96,13 +106,13 @@ get_QIC <- function(object) {
                       Gamma = sum(-y/mu.R - log(mu.R)),
                       stop("Error: distribution not defined for this function"))
     # Trace Term (penalty for model complexity)
-    omegaI <- ginv(model.indep$geese$vbeta.naiv) # Omega-hat(I) via Moore-Penrose 
+    omegaI <- solve(model.indep$geese$vbeta) # Omega-hat(I) via Moore-Penrose 
     Vr <- object$geese$vbeta
     trace.R <- sum(diag(omegaI %*% Vr))
     px <- dim(model.matrix(model.indep))[2]
     QIC <- 2*(trace.R - quasi.R)
     out <- list()
-    out$QIC <- QIC
+    out$QIC <- round(QIC,4)
     out$log.QLik <- quasi.R
     out$Trace <- trace.R
     out$px <- px

@@ -3,3 +3,7 @@
 export(QIC)
 export(get_QIC)
 import(MASS)
+import(geepack)
+importFrom(stats,family)
+importFrom(stats,model.matrix)
+importFrom(stats,update)

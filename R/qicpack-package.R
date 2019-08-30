@@ -7,6 +7,7 @@
 #' @keywords package
 #' @references 
 #' Fung, T. (2019). \emph{qicpack}: QIC Package for GEE. R package version 0.0.1.
+#' Hocking, D.J. (2016). \emph{qicpack}: qicpack R package. \url{https://github.com/djhocking/qicpack}. 
 NULL
 
 #' Dietox data set
